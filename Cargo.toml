@@ -1,0 +1,5 @@
+[package]
+
+name = "drum_machine"
+version = "0.0.1"
+authors = ["vagrant"]
