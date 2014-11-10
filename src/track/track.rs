@@ -11,16 +11,6 @@ pub struct Track {
     sequences: Vec<Sequence>,
 }
 
-pub trait Playable {
-    fn play(&self);
-}
-
-impl Playable for Track {
-    fn play(&self) {
-        println!("Playing track");
-    }
-}
-
 impl Track {
     pub fn new(bpm: uint, title: String) -> Track {
         Track { time_signature: 4, bpm: bpm, title: title, sequences: vec![] }
@@ -33,7 +23,7 @@ impl Track {
     pub fn play(&self) {
         let compiled_track = self.compile_track();
         // ((60/bpm)*time_signature)/8
-        let step_time = ((((60f32/(self.bpm as f32))*(self.time_signature as f32))/8f32)*1000f32) as i64;
+        let step_time = ((((60f64/(self.bpm as f64))*(self.time_signature as f64))/8f64)*1000f64) as i64;
         let mut step_count: int = 0;
         let mut timer = Timer::new().unwrap();
 

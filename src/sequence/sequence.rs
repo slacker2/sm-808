@@ -5,16 +5,6 @@ pub struct Sequence {
     steps: uint,
 }
 
-pub trait Playable {
-    fn play(&self);
-}
-
-impl Playable for Sequence {
-    fn play(&self) {
-        self.play()
-    }
-}
-
 impl Sequence {
 
     pub fn new(sample: &str, pattern: u32) -> Sequence {
