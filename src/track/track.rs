@@ -58,7 +58,6 @@ impl Track {
         }
 
         for s in self.sequences.iter() {
-            // how many times this pattern should play
             for i in range(0u, longest_pattern) {
                 if s.hit(i) {
                     if track[i].as_slice() == "_" {
