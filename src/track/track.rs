@@ -12,8 +12,8 @@ pub struct Track {
 }
 
 impl Track {
-    pub fn new(bpm: uint, title: String) -> Track {
-        Track { time_signature: 4, bpm: bpm, title: title, sequences: vec![] }
+    pub fn new(bpm: uint, title: &str) -> Track {
+        Track { time_signature: 4, bpm: bpm, title: title.to_string(), sequences: vec![] }
     }
 
     pub fn add_sequence(&mut self, s: Sequence) {
@@ -27,7 +27,7 @@ impl Track {
         let mut step_count: int = 0;
         let mut timer = Timer::new().unwrap();
 
-        print!("Playing track: {}", self.title);
+        print!("Playing track: {}", self.title.to_string());
 
         for step in compiled_track.iter() {
             if step_count % 8 == 0 {
