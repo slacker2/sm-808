@@ -1,15 +1,37 @@
+extern crate time;
+
 use sequence::sequence::Sequence;
+use std::convert::AsRef;
 use std::io;
 use std::io::prelude::*;
+use std::process::Command;
 use std::thread;
-
-extern crate time;
 
 pub struct Track {
     time_signature: u32,
     bpm: u32,
     title: String,
     sequences: Vec<Sequence>,
+}
+
+fn parse_for_sound(sound: &String) -> String {
+    match sound.as_ref() {
+        "kick+snare" => String::from_str("boom click"),
+        "kick"       => String::from_str("boom"),
+        "snare"      => String::from_str("click"),
+        "hihat"      => String::from_str("ting"),
+        _            => String::from_str("")
+    }
+}
+
+fn say_sound(sound: &String) {
+    let parsed_sound = parse_for_sound(&sound);
+    let output = Command::new("say")
+                         .arg(parsed_sound)
+                         .output()
+                         .unwrap_or_else(|e| { panic!("Failed to execute process: {}", e) });
+
+    output.stdout;
 }
 
 impl Track {
@@ -37,6 +59,7 @@ impl Track {
             }
             print!("{}|", step);
             io::stdout().flush().unwrap();
+            say_sound(&step);
             step_count = step_count + 1;
             thread::sleep_ms(step_time);
         }
